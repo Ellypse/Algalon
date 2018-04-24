@@ -21,12 +21,13 @@ const VERSIONS = [
 
 const TARGET_CHANNEL = "automated-messages";
 const DEBUG_CHANNEL = "purple-parlor";
+const DEBUG = false;
 
 let automatedMessage, purpleParlor;
 const clients = {};
 
 function fetchCDN() {
-    purpleParlor.send("Fetching Blizzard CDN for new versions");
+    if(DEBUG) purpleParlor.send("Fetching Blizzard CDN for new versions");
     VERSIONS.map(({url_param, version}) => {
         http.get(URL + url_param + "/versions", res => {
             let body = '';
@@ -37,7 +38,7 @@ function fetchCDN() {
 
             res.on('end', function () {
                 try {
-                    purpleParlor.send(`Received results for ${version}`);
+                    if (DEBUG) purpleParlor.send(`Received results for ${version}`);
                     res = body.split('\n')[2];
                     const data = res.split("|");
                     const buildNumber = data[4];
@@ -58,7 +59,7 @@ function fetchCDN() {
                         };
                     }
                     else {
-                        purpleParlor.send(`Now new client build found for ${version}.`);
+                        if (DEBUG) purpleParlor.send(`Now new client build found for ${version}.`);
                     }
                 } catch (err) {
                     purpleParlor.send("ERROR: " + JSON.stringify(err));
