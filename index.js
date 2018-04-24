@@ -1,5 +1,5 @@
-const Discord = require('discord.js')
-const client = new Discord.Client()
+const Discord = require('discord.js');
+const client = new Discord.Client();
 const http = require('http');
 const auth = require('./auth.json');
 
@@ -18,8 +18,10 @@ const VERSIONS = [
         url_param: "wow_beta"
     }
 ];
+
 const TARGET_CHANNEL = "automated-messages";
 const DEBUG_CHANNEL = "purple-parlor";
+
 let automatedMessage, purpleParlor;
 const clients = {};
 
